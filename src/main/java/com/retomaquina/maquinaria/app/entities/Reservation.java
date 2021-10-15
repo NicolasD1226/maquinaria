@@ -5,6 +5,7 @@
  */
 package com.retomaquina.maquinaria.app.entities;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,13 +22,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="message")
-public class Message {
+@Table(name="reservation")
+public class Reservation implements Serializable { 
+    
     @Id
     @GeneratedValue
-    private int idMessage;
-    private String messageText;
-   // private Machine machine;
-   // private Client client;
-
+    private int idReservation;
+    private String startDate;
+    private String devolutionDate;
+    private String status;
+    //private Machine machine;
+    //private Client client;
+    //private Score Score;
+    
+    
 }

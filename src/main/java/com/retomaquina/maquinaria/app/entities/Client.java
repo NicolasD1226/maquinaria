@@ -6,71 +6,36 @@
 package com.retomaquina.maquinaria.app.entities;
 
 import java.io.Serializable;
-import javax.persistence.Column;
+//import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import org.hibernate.id.CompositeNestedGeneratedValueGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
 
 /**
  *
  * @author ADMIN
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="client")
 public class Client implements Serializable{
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(length=50)
-    private String name;
-    @Column(length=50,name ="email",unique =true,nullable =false)
+    @GeneratedValue
+    private int idClient;
     private String email;
+    private String password;
+    private String name;
     private int age;
-
-    public Client() {
-    }
-    
-    public Client(int id, String name, String email, int age) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-    
-
-    public int getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
+    //private List<Message> messages;
+    //private List<Reservation> reservations;
     
 }

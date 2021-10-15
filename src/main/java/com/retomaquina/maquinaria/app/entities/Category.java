@@ -5,6 +5,7 @@
  */
 package com.retomaquina.maquinaria.app.entities;
 
+//import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,13 +22,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="message")
-public class Message {
+@Table(name="category")
+public class Category {
     @Id
     @GeneratedValue
-    private int idMessage;
-    private String messageText;
-   // private Machine machine;
-   // private Client client;
-
+    private int id;
+    private String name;
+    private String description;
+    //private List<Machine> machines; 
 }

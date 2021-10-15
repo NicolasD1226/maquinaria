@@ -6,13 +6,13 @@
 package com.retomaquina.maquinaria.app.repositories;
 
 
-import com.retomaquina.maquinaria.app.entities.Message;
+import com.retomaquina.maquinaria.app.entities.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author ADMIN
  */
-public interface MessageRepository extends JpaRepository<Message,Integer> {
+public interface CategoryRepository extends JpaRepository<Category,Integer>{
     
 }

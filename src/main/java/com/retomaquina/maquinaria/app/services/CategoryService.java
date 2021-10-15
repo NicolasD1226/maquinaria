@@ -5,8 +5,8 @@
  */
 package com.retomaquina.maquinaria.app.services;
 
-import com.retomaquina.maquinaria.app.entities.Client;
-import com.retomaquina.maquinaria.app.repositories.ClientRepository;
+import com.retomaquina.maquinaria.app.entities.Category;
+import com.retomaquina.maquinaria.app.repositories.CategoryRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,38 +16,39 @@ import org.springframework.stereotype.Service;
  * @author ADMIN
  */
 @Service
-public class ClientService {
+public class CategoryService {
+    
     @Autowired
-    private ClientRepository repository;
+    private CategoryRepository repository;
     /**
      *  GET
      * @return 
      */
     
-    public List<Client> getClient(){
+    public List<Category> getCategory(){
         return repository.findAll();
     }
     /**
      * POST
-     * @param client
+     * @param category
      * @return 
      */
     
-    public Client saveClient(Client client){
-    return repository.save(client);
+    public Category saveCategory(Category category){
+    return repository.save(category);
     }
     /**
      * PUT
-     * @param client
+     * @param category
      * @return 
      */
     
-    public Client updateClient(Client client){
-        Client existingClient = repository.findById(client.getIdClient()).orElse(null);
-        existingClient.setName(client.getName());
-        existingClient.setEmail(client.getEmail());
-        existingClient.setAge(client.getAge());
-        return  repository.save(existingClient);
+    public Category updateCategory(Category category){
+        Category existingCategory = repository.findById(category.getId()).orElse(null);
+        existingCategory.setName(category.getName());
+        existingCategory.setDescription(category.getDescription());
+        
+        return  repository.save(existingCategory);
     }
     /**
      * DELETE
@@ -58,7 +59,7 @@ public class ClientService {
     public String deleteClient(int id){
         
         repository.deleteById(id);
-        return "Cliente "+ id +" eliminado";
+        return "Categoria "+ id +" eliminada";
     }
     
 }

@@ -5,8 +5,8 @@
  */
 package com.retomaquina.maquinaria.app.controllers;
 
-import com.retomaquina.maquinaria.app.entities.Message;
-import com.retomaquina.maquinaria.app.services.MessageService;
+import com.retomaquina.maquinaria.app.entities.Reservation;
+import com.retomaquina.maquinaria.app.services.ReservationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,33 +23,34 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ADMIN
  */
 @RestController
-@RequestMapping("Message")
-public class MessageController {
+@RequestMapping("Reservation")
+public class ReservationController {
     
     @Autowired
-    private MessageService service;
+    private ReservationService service;
     
     @GetMapping("/all")
-    public  List<Message> findAllMessage(){
-       return service.getMessages();
+    public  List<Reservation> findAllReservation(){
+       return service.getReservation();
     }
     
     @PostMapping("/save")
-    public ResponseEntity addMessageEntity (@RequestBody Message message){
-        service.saveMessages(message);
+    public ResponseEntity addMessageEntity (@RequestBody Reservation reservation){
+        service.saveReservation(reservation);
         return ResponseEntity.status(201).build();
     } 
     
     @PutMapping("/upload")
-    public ResponseEntity  uploadMessageEntity(@RequestBody Message message){
-        service.updateMessages(message);
+    public ResponseEntity  uploadMessageEntity(@RequestBody Reservation reservation){
+        service.updateReservation(reservation);
         return ResponseEntity.status(201).build();
     }
     
     @DeleteMapping("/delete")
-    public ResponseEntity deleteMessageEntity(@RequestBody Message message){
-        service.deleteMessages(message.getId());
+    public ResponseEntity deleteMessageEntity(@RequestBody Reservation reservation){
+        service.deleteMessages(reservation.getIdReservation());
         return ResponseEntity.status(204).build();
     }
+    
     
 }

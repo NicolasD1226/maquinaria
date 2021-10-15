@@ -5,9 +5,9 @@
  */
 package com.retomaquina.maquinaria.app.controllers;
 
-
+import com.retomaquina.maquinaria.app.entities.Category;
 import com.retomaquina.maquinaria.app.entities.Client;
-import com.retomaquina.maquinaria.app.services.ClientService;
+import com.retomaquina.maquinaria.app.services.CategoryService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,32 +24,32 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ADMIN
  */
 @RestController
-@RequestMapping("Client")
-public class ClientController {
+@RequestMapping("Category")
+public class CategoryController {
     
     @Autowired
-    private ClientService service;
+    private CategoryService service;
     
     @GetMapping("/all")
-    public  List<Client> findAllClient(){
-       return service.getClient();
+    public  List<Category> findAllCategory(){
+       return service.getCategory();
     }
     
     @PostMapping("/save")
-    public ResponseEntity addClientEntity (@RequestBody Client client){
-        service.saveClient(client);
+    public ResponseEntity addCategoryEntity (@RequestBody Category category){
+        service.saveCategory(category);
         return ResponseEntity.status(201).build();
     } 
     
     @PutMapping("/upload")
-    public ResponseEntity  uploadClientEntity(@RequestBody Client client){
-        service.updateClient(client);
+    public ResponseEntity  uploadCategoryEntity(@RequestBody Category category){
+        service.updateCategory(category);
         return ResponseEntity.status(201).build();
     }
     
     @DeleteMapping("/delete")
-    public ResponseEntity deleteClientEntity(@RequestBody Client client){
-        service.deleteClient(client.getIdClient());
+    public ResponseEntity deleteCategoryEntity(@RequestBody Category category){
+        service.deleteClient(category.getId());
         return ResponseEntity.status(204).build();
     }
 }
