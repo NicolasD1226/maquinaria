@@ -7,20 +7,15 @@ package com.retomaquina.maquinaria.app.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.nio.MappedByteBuffer;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
 
 /**
  *
@@ -30,21 +25,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="client")
-public class Client implements Serializable{
+@Table(name="score")
+public class Score implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idClient;
-    private String name;
-    private int age;
-    private String email;
-    private String password;
-    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy ="client")
-    @JsonIgnoreProperties("client")
-    private List<Message> messages;
-    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy ="client")
-    @JsonIgnoreProperties("client")
-    private List<Reservation> reservations;
+    private int idScore;
+    private String messageText;
+    private int stars;
+    
+    @OneToOne
+    @JsonIgnoreProperties("score")
+    private Reservation reservation;
     
 }

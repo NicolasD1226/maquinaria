@@ -56,8 +56,7 @@ public class CategoryService {
      * @return 
      */
     
-    public String deleteClient(int id){
-        
+    public String deleteClient(int id){ 
         repository.deleteById(id);
         return "Categoria "+ id +" eliminada";
     }
