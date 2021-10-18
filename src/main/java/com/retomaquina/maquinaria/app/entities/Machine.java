@@ -40,7 +40,7 @@ public class Machine implements Serializable{
     private String description;
     
     @ManyToOne()
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "categoryId")
     @JsonIgnoreProperties("machines")
     private Category category;
     
