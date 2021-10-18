@@ -5,6 +5,7 @@
  */
 package com.retomaquina.maquinaria.app.entities;
 
+import java.util.Calendar;
 import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -74,7 +75,7 @@ public class ReservationTest {
         System.out.println("getDevolutionDate");
         Reservation instance = new Reservation();
         Date expResult = null;
-        Date result = instance.getDevolutionDate();
+        Calendar result = instance.getDevolutionDate();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -154,7 +155,7 @@ public class ReservationTest {
     @Test
     public void testSetDevolutionDate() {
         System.out.println("setDevolutionDate");
-        Date devolutionDate = null;
+        Calendar devolutionDate = null;
         Reservation instance = new Reservation();
         instance.setDevolutionDate(devolutionDate);
         // TODO review the generated test code and remove the default call to fail.
