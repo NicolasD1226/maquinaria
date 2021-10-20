@@ -5,9 +5,11 @@
  */
 package com.retomaquina.maquinaria.app.services;
 
+
 import com.retomaquina.maquinaria.app.entities.Category;
 import com.retomaquina.maquinaria.app.repositories.CategoryRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,48 +19,82 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CategoryService {
+     @Autowired
+    private  CategoryRepository repository;
     
-    @Autowired
-    private CategoryRepository repository;
     /**
-     *  GET
+     * GET
      * @return 
      */
+    public List<Category> getAll(){
+        return  repository.getAll();
+    } 
     
-    public List<Category> getCategory(){
-        return repository.findAll();
+    /**
+     * Buscar por ID
+     * @param categoryid
+     * @return 
+     */
+    public Optional<Category> getCategory (int categoryid){
+        return repository.getCategory(categoryid);
     }
+    
     /**
      * POST
      * @param category
      * @return 
      */
-    
-    public Category saveCategory(Category category){
-    return repository.save(category);
+    public Category save(Category category){
+        if (category.getId()== null) {
+            Optional<Category> resultado =repository.getCategory(category.getId());
+            if (resultado.isPresent()){
+                return category;
+            }else{
+                return repository.save(category);
+            }  
+        }else{
+            return repository.save(category);
+        }
     }
+    
     /**
-     * PUT
+     * UPDATE
      * @param category
      * @return 
      */
     
-    public Category updateCategory(Category category){
-        Category existingCategory = repository.findById(category.getId()).orElse(null);
-        existingCategory.setName(category.getName());
-        existingCategory.setDescription(category.getDescription());
-        
-        return  repository.save(existingCategory);
+    public Category update(Category category){
+        if(category.getId()!= null){
+            Optional<Category> resultado =repository.getCategory(category.getId());
+            if (resultado.isPresent()){
+                if (category.getName()!= null){
+                    resultado.get().setName(category.getName());
+                }
+                if (category.getDescription()!= null){
+                    resultado.get().setDescription(category.getDescription());}
+                repository.save(resultado.get());
+                return resultado.get();
+            }else{
+                return category;
+            }
+        }else{
+            return category;
+        }
     }
     /**
      * DELETE
-     * @param id
+     * @param categoryId
      * @return 
      */
+    public boolean deleteCategory(int categoryId){
+        boolean aboolean = getCategory(categoryId).map(category ->{
+            repository.delete(category);
+            return  true;
+        }).orElse(false);
+        return aboolean;
+        }
+
     
-    public String deleteClient(int id){ 
-        repository.deleteById(id);
-        return "Categoria "+ id +" eliminada";
-    }
+ 
     
 }

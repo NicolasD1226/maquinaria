@@ -5,9 +5,13 @@
  */
 package com.retomaquina.maquinaria.app.services;
 
+
+import com.retomaquina.maquinaria.app.entities.Reservation;
 import com.retomaquina.maquinaria.app.entities.Reservation;
 import com.retomaquina.maquinaria.app.repositories.ReservationRepository;
+import com.retomaquina.maquinaria.app.repositories.ReservationRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,49 +21,85 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ReservationService {
-    @Autowired
-    private ReservationRepository repository;
+    
+         @Autowired
+    private  ReservationRepository repository;
+    
     /**
-     *  GET
+     * GET
      * @return 
      */
+    public List<Reservation> getAll(){
+        return  repository.getAll();
+    } 
     
-    public List<Reservation> getReservation(){
-        return repository.findAll();
+    /**
+     * Buscar por ID
+     * @param reservationid
+     * @return 
+     */
+    public Optional<Reservation> getReservation (int reservationid){
+        return repository.getReservation(reservationid);
     }
+    
     /**
      * POST
      * @param reservation
      * @return 
      */
-    
-    public Reservation saveReservation(Reservation reservation){
-    return repository.save(reservation);
+    public Reservation save(Reservation reservation){
+        if (reservation.getIdReservation()== null) {
+            Optional<Reservation> resultado =repository.getReservation(reservation.getIdReservation());
+            if (resultado.isPresent()){
+                return reservation;
+            }else{
+                return repository.save(reservation);
+            }  
+        }else{
+            return repository.save(reservation);
+        }
     }
+    
     /**
-     * PUT
+     * UPDATE
      * @param reservation
      * @return 
      */
     
-    public Reservation updateReservation(Reservation reservation){
-        Reservation existingReservation = repository.findById(reservation.getIdReservation()).orElse(null);
-        existingReservation.setStartDate(reservation.getStartDate());
-        existingReservation.setDevolutionDate(reservation.getDevolutionDate());
-        existingReservation.setStatus(reservation.getStatus()); 
-        return  repository.save(existingReservation);
+    public Reservation update(Reservation reservation){
+        if(reservation.getIdReservation()!= null){
+            Optional<Reservation> resultado =repository.getReservation(reservation.getIdReservation());
+            if (resultado.isPresent()){
+                if (reservation.getStartDate()!= null){
+                    resultado.get().setStartDate(reservation.getStartDate());
+                }
+                if (reservation.getDevolutionDate()!= null){
+                    resultado.get().setDevolutionDate(reservation.getDevolutionDate());
+                }
+                if (reservation.getStatus()!= null){
+                    resultado.get().setStatus(reservation.getStatus());}
+                
+                repository.save(resultado.get());
+                return resultado.get();
+            }else{
+                return reservation;
+            }
+        }else{
+            return reservation;
+        }
     }
     /**
      * DELETE
-     * @param id
+     * @param reservationId
      * @return 
      */
-    
-    public String deleteMessages(int id){
-        
-        repository.deleteById(id);
-        return "Mensaje"+ id +" eliminado";
-    
-    }
-    
+    public boolean deleteReservation(int reservationId){
+        boolean aboolean = getReservation(reservationId).map(reservation ->{
+            repository.delete(reservation);
+            return  true;
+        }).orElse(false);
+        return aboolean;
+        }
+
 }
+                

@@ -33,10 +33,10 @@ import lombok.NoArgsConstructor;
 public class Machine implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private String brand;
-    private int year;
+    private Integer year;
     private String description;
     
     @ManyToOne()

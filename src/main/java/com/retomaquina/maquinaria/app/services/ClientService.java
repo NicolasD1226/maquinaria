@@ -5,9 +5,11 @@
  */
 package com.retomaquina.maquinaria.app.services;
 
+
 import com.retomaquina.maquinaria.app.entities.Client;
 import com.retomaquina.maquinaria.app.repositories.ClientRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,48 +19,86 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ClientService {
+   
     @Autowired
-    private ClientRepository repository;
+    private  ClientRepository repository;
+    
     /**
-     *  GET
+     * GET
      * @return 
      */
+    public List<Client> getAll(){
+        return  repository.getAll();
+    } 
     
-    public List<Client> getClient(){
-        return repository.findAll();
+    /**
+     * Buscar por ID
+     * @param clientid
+     * @return 
+     */
+    public Optional<Client> getClient (int clientid){
+        return repository.getClient(clientid);
     }
+    
     /**
      * POST
      * @param client
      * @return 
      */
-    
-    public Client saveClient(Client client){
-    return repository.save(client);
+    public Client save(Client client){
+        if (client.getIdClient()== null) {
+            Optional<Client> resultado =repository.getClient(client.getIdClient());
+            if (resultado.isPresent()){
+                return client;
+            }else{
+                return repository.save(client);
+            }  
+        }else{
+            return repository.save(client);
+        }
     }
+    
     /**
-     * PUT
+     * UPDATE
      * @param client
      * @return 
      */
     
-    public Client updateClient(Client client){
-        Client existingClient = repository.findById(client.getIdClient()).orElse(null);
-        existingClient.setName(client.getName());
-        existingClient.setEmail(client.getEmail());
-        existingClient.setAge(client.getAge());
-        return  repository.save(existingClient);
+    public Client update(Client client){
+        if(client.getIdClient()!= null){
+            Optional<Client> resultado =repository.getClient(client.getIdClient());
+            if (resultado.isPresent()){
+                if (client.getName()!= null){
+                    resultado.get().setName(client.getName());
+                }
+                if (client.getAge() != 0){
+                    resultado.get().setAge(client.getAge());
+                }
+                if (client.getEmail()!= null){
+                    resultado.get().setEmail(client.getEmail());}
+                
+                if (client.getPassword() != null){
+                    resultado.get().setPassword(client.getPassword());
+                }
+                repository.save(resultado.get());
+                return resultado.get();
+            }else{
+                return client;
+            }
+        }else{
+            return client;
+        }
     }
     /**
      * DELETE
-     * @param id
+     * @param clientId
      * @return 
      */
-    
-    public String deleteClient(int id){
-        
-        repository.deleteById(id);
-        return "Cliente "+ id +" eliminado";
+    public boolean deleteClient(int clientId){
+        boolean aboolean = getClient(clientId).map(client ->{
+            repository.delete(client);
+            return  true;
+        }).orElse(false);
+        return aboolean;
+        }
     }
-    
-}

@@ -36,8 +36,8 @@ public class Reservation implements Serializable {
     
     @Id
     @GeneratedValue 
-    private int idReservation;
-    private Date startDate;
+    private Integer idReservation;
+    private Calendar startDate;
     private Calendar devolutionDate;
     private String status;
     

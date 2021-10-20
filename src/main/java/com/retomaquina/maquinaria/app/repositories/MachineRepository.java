@@ -6,12 +6,58 @@
 package com.retomaquina.maquinaria.app.repositories;
 
 import com.retomaquina.maquinaria.app.entities.Machine;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.retomaquina.maquinaria.app.entities.Machine;
+import com.retomaquina.maquinaria.app.repositories.crud.MachineCrudRepository;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+
 
 /**
  *
  * @author ADMIN
  */
-public interface MachineRepository extends JpaRepository<Machine,Integer>{
+@Repository
+public class MachineRepository {
+  
+    @Autowired
+    private MachineCrudRepository machineCrudRepository;
     
+    /**
+    *SELECT
+    *@return
+    */
+    
+    public List<Machine> getAll(){
+        return (List<Machine>) machineCrudRepository.findAll();
+    }
+    /**
+     * Insert
+     * @param machine
+     * @return 
+     */
+    
+    public Machine save(Machine machine ){
+        return machineCrudRepository.save(machine);
+    }
+    
+    /**
+     * Buscar-registro
+     * @param machineId
+     * @return 
+     */
+    
+    public Optional<Machine> getMachine(int machineId){
+        return machineCrudRepository.findById(machineId);
+    }
+    /**
+     * Delete
+     * @param machine 
+     */
+    
+    public void delete(Machine machine){
+         machineCrudRepository.delete(machine);
+    }
 }

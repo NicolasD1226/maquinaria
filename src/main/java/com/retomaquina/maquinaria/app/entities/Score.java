@@ -30,9 +30,9 @@ public class Score implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idScore;
+    private Integer idScore;
     private String messageText;
-    private int stars;
+    private Integer stars;
     
     @OneToOne
     @JsonIgnoreProperties("score")

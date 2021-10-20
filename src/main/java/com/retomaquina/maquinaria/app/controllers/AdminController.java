@@ -5,10 +5,8 @@
  */
 package com.retomaquina.maquinaria.app.controllers;
 
-
-
-import com.retomaquina.maquinaria.app.entities.Machine;
-import com.retomaquina.maquinaria.app.services.MachineService;
+import com.retomaquina.maquinaria.app.entities.Admin;
+import com.retomaquina.maquinaria.app.services.AdminService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,58 +16,53 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author ADMIN
  */
-@RestController
-@RequestMapping("Machine")
-public class MachineController {
+public class AdminController {
     @Autowired
-    private MachineService service;
+    private AdminService service;
     
     /**
      * SELECT
      * @return 
      */
     @GetMapping("/all")
-    public List<Machine> getMachine(){
+    public List<Admin> getAdmin(){
         return service.getAll();
     }
     /**
      * POST
-     * @param machine
+     * @param admin
      * @return 
      */
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Machine save(@RequestBody Machine machine) {
-      return service.save(machine);
+    public Admin save(@RequestBody Admin admin) {
+      return service.save(admin);
      }
     /**
      * UPDATE
-     * @param machine
+     * @param admin
      * @return 
      */
   
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Machine update(@RequestBody Machine machine) {
-     return service.update(machine);
+    public Admin update(@RequestBody Admin admin) {
+     return service.update(admin);
     }
 	    
      /**
      * DELETE
-    * @param machineId
+    * @param adminId
     * @return 
      */
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable("id") int machineId) {
-    return service.deleteMachine(machineId);
+    public boolean delete(@PathVariable("id") int adminId) {
+    return service.deleteAdmin(adminId);
     }
-   
 }

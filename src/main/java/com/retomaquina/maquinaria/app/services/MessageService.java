@@ -5,9 +5,11 @@
  */
 package com.retomaquina.maquinaria.app.services;
 
+
 import com.retomaquina.maquinaria.app.entities.Message;
 import com.retomaquina.maquinaria.app.repositories.MessageRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,48 +19,79 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class MessageService {
-    @Autowired
-    private MessageRepository repository;
+    
+     @Autowired
+    private  MessageRepository repository;
+    
     /**
-     *  GET
+     * GET
      * @return 
      */
+    public List<Message> getAll(){
+        return  repository.getAll();
+    } 
     
-    public List<Message> getMessages(){
-        return repository.findAll();
+    /**
+     * Buscar por ID
+     * @param messageid
+     * @return 
+     */
+    public Optional<Message> getMessage (int messageid){
+        return repository.getMessage(messageid);
     }
+    
     /**
      * POST
      * @param message
      * @return 
      */
-    
-    public Message saveMessages(Message message){
-    return repository.save(message);
+    public Message save(Message message){
+        if (message.getIdMessage()== null) {
+            Optional<Message> resultado =repository.getMessage(message.getIdMessage());
+            if (resultado.isPresent()){
+                return message;
+            }else{
+                return repository.save(message);
+            }  
+        }else{
+            return repository.save(message);
+        }
     }
+    
     /**
-     * PUT
+     * UPDATE
      * @param message
      * @return 
      */
     
-    public Message updateMessages(Message message){
-        Message existingMessage = repository.findById(message.getIdMessage()).orElse(null);
-        existingMessage.setMessageText(message.getMessageText());
-        
-        
-        return  repository.save(existingMessage);
+    public Message update(Message message){
+        if(message.getIdMessage()!= null){
+            Optional<Message> resultado =repository.getMessage(message.getIdMessage());
+            if (resultado.isPresent()){
+                if (message.getMessageText()!= null){
+                    resultado.get().setMessageText(message.getMessageText());
+                }
+                
+                repository.save(resultado.get());
+                return resultado.get();
+            }else{
+                return message;
+            }
+        }else{
+            return message;
+        }
     }
     /**
      * DELETE
-     * @param id
+     * @param messageId
      * @return 
      */
-    
-    public String deleteMessages(int id){
-        
-        repository.deleteById(id);
-        return "Mensaje"+ id +" eliminado";
-    
-    }
+    public boolean deleteMessage(int messageId){
+        boolean aboolean = getMessage(messageId).map(message ->{
+            repository.delete(message);
+            return  true;
+        }).orElse(false);
+        return aboolean;
+        }
+
 }
