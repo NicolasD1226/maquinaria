@@ -46,7 +46,7 @@ public class MachineService {
      * @return 
      */
     public Machine save(Machine machine){
-        if (machine.getId()== null) {
+        if (machine.getId()!= null) {
             Optional<Machine> resultado =repository.getMachine(machine.getId());
             if (resultado.isPresent()){
                 return machine;

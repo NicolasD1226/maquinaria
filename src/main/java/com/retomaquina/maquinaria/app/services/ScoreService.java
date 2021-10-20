@@ -44,7 +44,7 @@ public class ScoreService {
      * @return 
      */
     public Score save(Score score){
-        if (score.getIdScore()== null) {
+        if (score.getIdScore()!= null) {
             Optional<Score> resultado =repository.getScore(score.getIdScore());
             if (resultado.isPresent()){
                 return score;

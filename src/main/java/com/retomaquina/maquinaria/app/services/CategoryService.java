@@ -45,7 +45,7 @@ public class CategoryService {
      * @return 
      */
     public Category save(Category category){
-        if (category.getId()== null) {
+        if (category.getId()!= null) {
             Optional<Category> resultado =repository.getCategory(category.getId());
             if (resultado.isPresent()){
                 return category;

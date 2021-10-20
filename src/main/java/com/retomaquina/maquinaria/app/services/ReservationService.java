@@ -48,7 +48,7 @@ public class ReservationService {
      * @return 
      */
     public Reservation save(Reservation reservation){
-        if (reservation.getIdReservation()== null) {
+        if (reservation.getIdReservation()!= null) {
             Optional<Reservation> resultado =repository.getReservation(reservation.getIdReservation());
             if (resultado.isPresent()){
                 return reservation;

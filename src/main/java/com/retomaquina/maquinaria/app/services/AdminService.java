@@ -46,7 +46,7 @@ public class AdminService {
      * @return 
      */
     public Admin save(Admin admin){
-        if (admin.getIdAdmin()== null) {
+        if (admin.getIdAdmin()!= null) {
             Optional<Admin> resultado =repository.getAdmin(admin.getIdAdmin());
             if (resultado.isPresent()){
                 return admin;

@@ -46,7 +46,7 @@ public class MessageService {
      * @return 
      */
     public Message save(Message message){
-        if (message.getIdMessage()== null) {
+        if (message.getIdMessage()!= null) {
             Optional<Message> resultado =repository.getMessage(message.getIdMessage());
             if (resultado.isPresent()){
                 return message;

@@ -46,7 +46,7 @@ public class ClientService {
      * @return 
      */
     public Client save(Client client){
-        if (client.getIdClient()== null) {
+        if (client.getIdClient()!= null) {
             Optional<Client> resultado =repository.getClient(client.getIdClient());
             if (resultado.isPresent()){
                 return client;
