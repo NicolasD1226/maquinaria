@@ -47,16 +47,16 @@ public class ReservationService {
      * @param reservation
      * @return 
      */
-    public Reservation save(Reservation reservation){
+    public void save(Reservation reservation){
         if (reservation.getIdReservation()!= null) {
             Optional<Reservation> resultado =repository.getReservation(reservation.getIdReservation());
             if (resultado.isPresent()){
-                return reservation;
+                
             }else{
-                return repository.save(reservation);
+                 repository.save(reservation);
             }  
         }else{
-            return repository.save(reservation);
+             repository.save(reservation);
         }
     }
     

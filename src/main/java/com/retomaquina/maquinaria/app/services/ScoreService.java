@@ -43,16 +43,16 @@ public class ScoreService {
      * @param score
      * @return 
      */
-    public Score save(Score score){
+    public void save(Score score){
         if (score.getIdScore()!= null) {
             Optional<Score> resultado =repository.getScore(score.getIdScore());
             if (resultado.isPresent()){
-                return score;
+                
             }else{
-                return repository.save(score);
+                repository.save(score);
             }  
         }else{
-            return repository.save(score);
+             repository.save(score);
         }
     }
     

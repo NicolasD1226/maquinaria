@@ -45,16 +45,16 @@ public class MessageService {
      * @param message
      * @return 
      */
-    public Message save(Message message){
+    public void save(Message message){
         if (message.getIdMessage()!= null) {
             Optional<Message> resultado =repository.getMessage(message.getIdMessage());
             if (resultado.isPresent()){
-                return message;
+                
             }else{
-                return repository.save(message);
+                 repository.save(message);
             }  
         }else{
-            return repository.save(message);
+                 repository.save(message);
         }
     }
     

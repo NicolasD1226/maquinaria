@@ -45,16 +45,16 @@ public class MachineService {
      * @param machine
      * @return 
      */
-    public Machine save(Machine machine){
+    public void save(Machine machine){
         if (machine.getId()!= null) {
             Optional<Machine> resultado =repository.getMachine(machine.getId());
             if (resultado.isPresent()){
-                return machine;
+                
             }else{
-                return repository.save(machine);
+                 repository.save(machine);
             }  
         }else{
-            return repository.save(machine);
+                 repository.save(machine);
         }
     }
     

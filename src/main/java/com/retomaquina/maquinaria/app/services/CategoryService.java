@@ -44,16 +44,16 @@ public class CategoryService {
      * @param category
      * @return 
      */
-    public Category save(Category category){
+    public void save(Category category){
         if (category.getId()!= null) {
             Optional<Category> resultado =repository.getCategory(category.getId());
             if (resultado.isPresent()){
-                return category;
+                 
             }else{
-                return repository.save(category);
+                 repository.save(category);
             }  
         }else{
-            return repository.save(category);
+                 repository.save(category);
         }
     }
     

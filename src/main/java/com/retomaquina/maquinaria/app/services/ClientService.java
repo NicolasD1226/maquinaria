@@ -45,16 +45,16 @@ public class ClientService {
      * @param client
      * @return 
      */
-    public Client save(Client client){
+    public void save(Client client){
         if (client.getIdClient()!= null) {
             Optional<Client> resultado =repository.getClient(client.getIdClient());
             if (resultado.isPresent()){
-                return client;
+                
             }else{
-                return repository.save(client);
+                 repository.save(client);
             }  
         }else{
-            return repository.save(client);
+                 repository.save(client);
         }
     }
     

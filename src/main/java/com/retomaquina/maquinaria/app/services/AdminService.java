@@ -45,16 +45,16 @@ public class AdminService {
      * @param admin
      * @return 
      */
-    public Admin save(Admin admin){
+    public void save(Admin admin){
         if (admin.getIdAdmin()!= null) {
             Optional<Admin> resultado =repository.getAdmin(admin.getIdAdmin());
             if (resultado.isPresent()){
-                return admin;
+                
             }else{
-                return repository.save(admin);
+                repository.save(admin);
             }  
         }else{
-            return repository.save(admin);
+                repository.save(admin);
         }
     }
     
