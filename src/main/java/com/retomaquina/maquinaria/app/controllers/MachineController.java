@@ -50,7 +50,7 @@ public class MachineController {
     public void save(@RequestBody Machine machine) {
        service.save(machine);
      }
-    /**
+       /**
      * UPDATE
      * @param machine
      * @return 
@@ -58,8 +58,8 @@ public class MachineController {
   
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Machine update(@RequestBody Machine machine) {
-     return service.update(machine);
+    public void update(@RequestBody Machine machine) {
+      service.update(machine);
     }
 	    
      /**
@@ -67,9 +67,11 @@ public class MachineController {
     * @param machineId
     * @return 
      */
+    
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable("id") int machineId) {
-    return service.deleteMachine(machineId);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("id") int machineId) {
+         service.deleteMachine(machineId);
     }
    
 }

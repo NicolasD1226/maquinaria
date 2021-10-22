@@ -50,7 +50,7 @@ public class ReservationController {
     public void save(@RequestBody Reservation reservation) {
        service.save(reservation);
      }
-    /**
+     /**
      * UPDATE
      * @param reservation
      * @return 
@@ -58,8 +58,8 @@ public class ReservationController {
   
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Reservation update(@RequestBody Reservation reservation) {
-     return service.update(reservation);
+    public void update(@RequestBody Reservation reservation) {
+      service.update(reservation);
     }
 	    
      /**
@@ -67,9 +67,11 @@ public class ReservationController {
     * @param reservationId
     * @return 
      */
+    
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable("id") int reservationId) {
-    return service.deleteReservation(reservationId);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("id") int reservationId) {
+         service.deleteReservation(reservationId);
     }
     
     

@@ -51,7 +51,7 @@ public class MessagesController {
        service.save(message);
         
      }
-    /**
+     /**
      * UPDATE
      * @param message
      * @return 
@@ -59,8 +59,8 @@ public class MessagesController {
   
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Message update(@RequestBody Message message) {
-     return service.update(message);
+    public void update(@RequestBody Message message) {
+      service.update(message);
     }
 	    
      /**
@@ -68,9 +68,11 @@ public class MessagesController {
     * @param messageId
     * @return 
      */
+    
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable("id") int messageId) {
-    return service.deleteMessage(messageId);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("id") int messageId) {
+         service.deleteMessage(messageId);
     }
    
 }

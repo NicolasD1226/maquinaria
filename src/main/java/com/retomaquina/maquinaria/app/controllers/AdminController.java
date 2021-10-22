@@ -52,8 +52,8 @@ public class AdminController {
   
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Admin update(@RequestBody Admin admin) {
-     return service.update(admin);
+    public void update(@RequestBody Admin admin) {
+      service.update(admin);
     }
 	    
      /**
@@ -61,8 +61,11 @@ public class AdminController {
     * @param adminId
     * @return 
      */
+    
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable("id") int adminId) {
-    return service.deleteAdmin(adminId);
-    }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("id") int adminId) {
+         service.deleteAdmin(adminId);
+    }  
+    
 }

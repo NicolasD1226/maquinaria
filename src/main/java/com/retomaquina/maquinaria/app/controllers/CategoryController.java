@@ -49,7 +49,7 @@ public class CategoryController {
     public void save(@RequestBody Category category) {
        service.save(category);
      }
-    /**
+       /**
      * UPDATE
      * @param category
      * @return 
@@ -57,8 +57,8 @@ public class CategoryController {
   
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Category update(@RequestBody Category category) {
-     return service.update(category);
+    public void update(@RequestBody Category category) {
+      service.update(category);
     }
 	    
      /**
@@ -66,9 +66,11 @@ public class CategoryController {
     * @param categoryId
     * @return 
      */
+    
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable("id") int categoryId) {
-    return service.deleteCategory(categoryId);
-    } 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("id") int categoryId) {
+         service.deleteCategory(categoryId);
+    }
   
 }
