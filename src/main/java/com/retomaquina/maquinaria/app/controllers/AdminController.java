@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ADMIN
  */
 @RestController
-@RequestMapping("Reservation")
+@RequestMapping("Admin")
 @CrossOrigin(origins = "*")
 public class AdminController {
     @Autowired
@@ -55,8 +55,7 @@ public class AdminController {
      * @param admin
      * @return 
      */
-  
-    @PutMapping("/update")
+     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
     public void update(@RequestBody Admin admin) {
       service.update(admin);
@@ -72,6 +71,7 @@ public class AdminController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") int adminId) {
          service.deleteAdmin(adminId);
-    }  
+    }
+ 
     
 }

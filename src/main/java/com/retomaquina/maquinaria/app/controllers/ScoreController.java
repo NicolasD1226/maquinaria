@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ADMIN
  */
 @RestController
-@RequestMapping("Reservation")
+@RequestMapping("Score")
 @CrossOrigin(origins = "*")
 public class ScoreController {
     @Autowired
@@ -55,8 +55,7 @@ public class ScoreController {
      * @param score
      * @return 
      */
-  
-    @PutMapping("/update")
+   @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
     public void update(@RequestBody Score score) {
       service.update(score);
@@ -73,4 +72,6 @@ public class ScoreController {
     public void delete(@PathVariable("id") int scoreId) {
          service.deleteScore(scoreId);
     }
+   
+    
 }

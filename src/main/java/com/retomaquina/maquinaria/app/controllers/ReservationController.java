@@ -45,7 +45,7 @@ public class ReservationController {
     /**
      * POST
      * @param reservation
-     * @return 
+     *  
      */
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
@@ -55,19 +55,18 @@ public class ReservationController {
      /**
      * UPDATE
      * @param reservation
-     * @return 
+     * 
      */
-  
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
     public void update(@RequestBody Reservation reservation) {
       service.update(reservation);
     }
-	    
+	 
      /**
      * DELETE
     * @param reservationId
-    * @return 
+    * 
      */
     
     @DeleteMapping("/{id}")
