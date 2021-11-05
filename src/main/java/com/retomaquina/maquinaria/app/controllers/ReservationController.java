@@ -6,6 +6,8 @@
 package com.retomaquina.maquinaria.app.controllers;
 
 
+import com.rentamaquina.maquinaria.app.entities.custom.CountClient;
+import com.rentamaquina.maquinaria.app.entities.custom.DescriptionAmount;
 import com.retomaquina.maquinaria.app.entities.Reservation;
 import com.retomaquina.maquinaria.app.services.ReservationService;
 import java.util.List;
@@ -74,6 +76,22 @@ public class ReservationController {
     public void delete(@PathVariable("id") int reservationId) {
          service.deleteReservation(reservationId);
     }
+    @GetMapping("/report-status")
+    public DescriptionAmount getReservationStatus(){
+	return service.getStatusReport();
+    } 
     
+    
+    @GetMapping("report-clients")
+    public List<CountClient> getCountClient(){
+	return service.getTopClient();
+    } 
+    
+    
+    @GetMapping("/report-dates/{dateOne}/{dateTwo}")
+    public List<Reservation> getDatesReport(
+    @PathVariable("dateOne") String d1,@PathVariable("dateTwo") String d2){
+	return service.getReservationPeriod(d1,d2);
+    }
     
 }

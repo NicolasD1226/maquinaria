@@ -5,9 +5,13 @@
  */
 package com.retomaquina.maquinaria.app.repositories;
 
+import com.rentamaquina.maquinaria.app.entities.custom.CountClient;
+import com.retomaquina.maquinaria.app.entities.Client;
 import com.retomaquina.maquinaria.app.entities.Reservation;
 import com.retomaquina.maquinaria.app.entities.Reservation;
 import com.retomaquina.maquinaria.app.repositories.crud.ReservationCrudRepository;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,24 @@ import org.springframework.stereotype.Repository;
 public class ReservationRepository  {
      @Autowired
     private ReservationCrudRepository reservationCrudRepository;
+     
+    public List<Reservation> getReservationByPeriod(Date dateOne,Date dateTwo){
+        return reservationCrudRepository.findAllByStartDateAfterAndStartDateBefore(dateOne,dateTwo);
+    }  
+    
+    public List<Reservation> getReservationByStatus(String status){
+        return reservationCrudRepository.findAllByStatus(status);
+    }
+      
+      
+   public List<CountClient> getTopClient(){
+        List<CountClient> res=new ArrayList<>();
+        List<Object[]> report=reservationCrudRepository.countTotalReservationByClient();
+        for(int i=0;i<report.size();i++){
+            res.add(new CountClient((Long) report.get(i)[1],(Client)report.get(i)[0] ));
+        }
+        return res;
+    }
     
     /**
     *SELECT
